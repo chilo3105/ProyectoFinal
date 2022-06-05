@@ -34,7 +34,6 @@ class MainAdapterProductsRamdom (private val productos: List<ProductoEntry>, val
             binding.tvPrice.setText("$ ${producto.price}")
             binding.tvDescription.setText(producto.description)
             binding.ratingBar.rating = producto.rating.rate.toFloat()
-            binding.ivProduct.setImageResource(R.drawable.ic_android_black_24dp)
             Picasso.get().load("${producto.image}").into(binding.ivProduct)
 
             binding.btnGuardar.setOnClickListener{
