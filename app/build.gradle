@@ -7,6 +7,9 @@ plugins {
 
     //ROOM
     id 'kotlin-kapt' //kotlin annotation processing tool (kapt)
+
+    //Safeargs
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {

@@ -8,10 +8,10 @@ import com.example.proyectofinal.remote.ProductoEntry
 import com.squareup.picasso.Picasso
 
 
-class MainAdapterProducts(private val productos: List<ProductoEntry>): RecyclerView.Adapter<MainAdapterProducts.MainHolder>() {
+class MainAdapterProducts(private val productos: List<ProductoEntry>, val callBack: ProductoListCallback): RecyclerView.Adapter<MainAdapterProducts.MainHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapterProducts.MainHolder {
         val binding = ItemProductoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainHolder(binding)
+        return MainHolder(binding, callBack)
     }
 
     override fun onBindViewHolder(holder: MainAdapterProducts.MainHolder, position: Int) {
@@ -23,7 +23,7 @@ class MainAdapterProducts(private val productos: List<ProductoEntry>): RecyclerV
         return productos.size
     }
 
-    class MainHolder(val binding:ItemProductoBinding):RecyclerView.ViewHolder(binding.root) {
+    class MainHolder(val binding:ItemProductoBinding, val callBack: ProductoListCallback):RecyclerView.ViewHolder(binding.root) {
         fun render(producto: ProductoEntry) {
             //TODDO assign text and image values in render function
             binding.tvTitle.setText(producto.title)
@@ -32,6 +32,15 @@ class MainAdapterProducts(private val productos: List<ProductoEntry>): RecyclerV
             binding.ratingBar.rating = producto.rating.rate.toFloat()
             binding.ivProduct.setImageResource(R.drawable.ic_android_black_24dp)
             Picasso.get().load("${producto.image}").into(binding.ivProduct)
+            binding.btnGuardar.setOnClickListener{
+                callBack.onClick(producto.id.toString(),
+                    producto.title,
+                    producto.price,
+                    producto.description,
+                    producto.image,
+                    producto.rating.rate,
+                )
+            }
         }
     }
 

@@ -9,7 +9,12 @@
         android:id="@+id/productFragment"
         android:name="com.example.proyectofinal.ProductFragment"
         android:label="fragment_product"
-        tools:layout="@layout/fragment_product" />
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_producto_a_carrito"
+            app:destination="@id/carritoFragment2" />
+
+    </fragment>
     <fragment
         android:id="@+id/profileFragment2"
         android:name="com.example.proyectofinal.ProfileFragment"
@@ -19,7 +24,26 @@
         android:id="@+id/carritoFragment2"
         android:name="com.example.proyectofinal.CarritoFragment"
         android:label="fragment_carrito"
-        tools:layout="@layout/fragment_carrito" />
+        tools:layout="@layout/fragment_carrito" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="float" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="rate"
+            app:argType="float" />
+    </fragment>
     <fragment
         android:id="@+id/buscarFragment"
         android:name="com.example.proyectofinal.BuscarFragment"

@@ -6,17 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.viewModels
+import com.example.proyectofinal.database.Producto
 import com.example.proyectofinal.databinding.FragmentBuscarBinding
-import com.example.proyectofinal.databinding.FragmentProductBinding
 import com.example.proyectofinal.remote.ProductoEntry
 import com.example.proyectofinal.remote.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BuscarFragment : Fragment() {
-
+class BuscarFragment : Fragment(), ProductoListCallback  {
+    private val mainViewModel : MainViewModel by viewModels()
     private lateinit var binding: FragmentBuscarBinding
 
     override fun onCreateView(
@@ -44,7 +46,7 @@ class BuscarFragment : Fragment() {
                             for (producto in productos) {
                                 if(producto.id == leido.toInt()) {
                                     var result: List<ProductoEntry> = listOf(producto)
-                                    binding.rvProductEntriesSearch.adapter = MainAdapterProducts(result)
+                                    binding.rvProductEntriesSearch.adapter = MainAdapterProducts(result, this@BuscarFragment)
                                     break
                                 }
                             }
@@ -60,5 +62,27 @@ class BuscarFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onClick(
+        id: String,
+        title: String,
+        price: Double,
+        description: String,
+        image: String,
+        rate: Double
+    ) {
+        mainViewModel.saveProduct(
+            Producto(
+                id,
+                title,
+                price,
+                description,
+                image,
+                rate,
+                1
+            )
+        )
+        Toast.makeText(context, "Guardado", Toast.LENGTH_LONG).show()
     }
 }

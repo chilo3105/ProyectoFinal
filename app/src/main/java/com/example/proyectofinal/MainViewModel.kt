@@ -12,7 +12,7 @@ class MainViewModel: ViewModel() {
 
     val savedProducts = MutableLiveData<List<Producto>>()
 
-    fun saveUser(product: Producto){
+    fun saveProduct(product: Producto){
         viewModelScope.launch{
             val productDao = DatabaseManager.instance.database.productDao()
             MyCoroutines(productDao).save(product)
@@ -26,7 +26,7 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun getUsers(){
+    fun getProducts(){
         viewModelScope.launch{
             val productDao = DatabaseManager.instance.database.productDao()
             savedProducts.value = MyCoroutines(productDao).getProducts().value
